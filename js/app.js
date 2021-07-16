@@ -17,12 +17,18 @@ class BudgetApp {
   }
 
   submitBudgetForm() {
-    console.log("hi")
-    // const value = this.budgetInput.value;
-    // if (value === "" || value < 0) {
-    //   this.budgetFeedback.classList.add("showItem");
-    //   this.budgetFeedback.innerHTML = `<p>Value cannot be empty or negative</p>`;
-    // }
+    const value = this.budgetInput.value;
+    if (value === "" || value < 0) {
+      this.budgetFeedback.classList.add("showItem");
+      this.budgetFeedback.innerHTML = `<p>Value cannot be empty or negative</p>`;
+      const self = this;
+      // set self to class itself
+
+      setTimeout(function () {
+        // if you this, it will go to the global (window)
+        self.budgetFeedback.classList.remove('showItem');
+      }, 4000)
+    }
   }
 }
 
