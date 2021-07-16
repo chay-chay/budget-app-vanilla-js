@@ -38,7 +38,24 @@ class BudgetApp {
   }
   // show balance
   showBalance() {
-    console.log('Hi this')
+    const expense = this.totalExpense();
+    const total = parseInt(this.budgetAmount.textContent) - expense;
+    this.balanceAmount.textContent = total;
+    if (total < 0) {
+      this.balance.classList.remove('showGreen', 'showBlack');
+      this.balance.classList.add('showRed')
+    } else if (total > 0) {
+      this.balance.classList.remove('showRed', 'showBlack');
+      this.balance.classList.add('showGreen')
+    } else if (total === 0) {
+      this.balance.classList.remove('showRed', 'showGreen');
+      this.balance.classList.add('shoeBlack')
+    }
+  }
+  // total expense
+  totalExpense() {
+    let total = 400;
+    return total
   }
 }
 
