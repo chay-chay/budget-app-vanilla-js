@@ -22,6 +22,7 @@ class BudgetApp {
       this.budgetFeedback.classList.add("showItem");
       this.budgetFeedback.innerHTML = `<p>Value cannot be empty or negative</p>`;
       const self = this;
+      // console.log(this)
       // set self to class itself
 
       setTimeout(function () {
@@ -29,6 +30,15 @@ class BudgetApp {
         self.budgetFeedback.classList.remove('showItem');
       }, 4000)
     }
+    else {
+      this.budgetAmount.textContent = value;
+      this.budgetInput.value = '';
+      this.showBalance();
+    }
+  }
+  // show balance
+  showBalance() {
+    console.log('Hi this')
   }
 }
 
