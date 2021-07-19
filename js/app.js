@@ -59,11 +59,24 @@ class BudgetApp {
     const amountValue = this.amountInput.value;
     if (expenseValue === '' || amountValue === '' || amountValue < 0) {
       this.expenseFeedback.classList.add('showItem');
-      this.expenseFeedback.innerHTML = `<>values cannot be empty or negative</p>`
+      this.expenseFeedback.innerHTML = `<p>values cannot be empty or negative</p>`
       const self = this
       setTimeout(function () {
         self.expenseFeedback.classList.remove('showItem');
       }, 400);
+    } else {
+      let amount = parseInt(amountValue)
+      this.expenseInput = '';
+      this.amountInput = '';
+
+      let expense = {
+        id: this.itemID,
+        title: this.expenseValue,
+        amount: amount,
+      }
+      this.itemID++,
+        this.itemList.push(expense);
+      this.addExpense()
     }
   }
   
