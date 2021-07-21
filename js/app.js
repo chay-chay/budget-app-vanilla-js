@@ -139,7 +139,14 @@ function eventListeners() {
     budget.submitExpenseForm();
   });
   // expense click
-  expenseList.addEventListener("click", function (event) {});
+  expenseList.addEventListener("click", function (event) {
+    if (event.target.parentElement.classList.contains("edit-icon")) {
+      budget.editExpense(event.target.parentElement)
+    } else if (event.target.parentElement.classList.contains("delete-icon")) {
+      budget.deleteExpense(event.target.parentElement)
+    }
+    
+  });
 }
 document.addEventListener("DOMContentLoaded", function () {
   eventListeners();
