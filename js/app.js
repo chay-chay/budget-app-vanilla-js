@@ -18,6 +18,7 @@ class BudgetApp {
 
   submitBudgetForm() {
     const value = this.budgetInput.value;
+    console.log(value)
     if (value === "" || value < 0) {
       this.budgetFeedback.classList.add("showItem");
       this.budgetFeedback.innerHTML = `<p>Value cannot be empty or negative</p>`;
@@ -35,6 +36,7 @@ class BudgetApp {
       this.budgetInput.value = '';
       this.showBalance();
     }
+    
   }
   // show balance
   showBalance() {
@@ -51,11 +53,13 @@ class BudgetApp {
       this.balance.classList.remove('showRed', 'showGreen');
       this.balance.classList.add('showBlack')
     }
+    console.log(expense)
   }
 
 // submit expense form
   submitExpenseForm() {
     const expenseValue = this.expenseInput.value;
+    console.log(expenseValue)
     const amountValue = this.amountInput.value;
     if (expenseValue === '' || amountValue === '' || amountValue < 0) {
       this.expenseFeedback.classList.add('showItem');
@@ -66,27 +70,52 @@ class BudgetApp {
       }, 400);
     } else {
       let amount = parseInt(amountValue)
-      this.expenseInput = '';
-      this.amountInput = '';
+      this.expenseInput = "";
+      this.amountInput = "";
 
       let expense = {
         id: this.itemID,
-        title: this.expenseValue,
+        title: expenseValue,
         amount: amount,
       }
-      this.itemID++,
+        this.itemID++,
         this.itemList.push(expense);
-      this.addExpense()
+        this.addExpense(expense)
+        // show balance
     }
   }
   
+// add expense
+addExpense(expense){
+  console.log(expense.title)
+  const div = document.createElement('div');
+  div.classList.add('expense')
+  div.innerHTML = ` 
+        <div class="expense-item d-flex justify-content-between align-items-baseline">
+         <h6 class="expense-title mb-0 text-uppercase list-item">${expense.title}</h6>
+         <h5 class="expense-amount mb-0 list-item">${expense.amount}</h5>
+         <div class="expense-icons list-item">
+          <a href="#" class="edit-icon mx-2" data-id="${expense.id}">
+           <i class="fas fa-edit"></i>
+          </a>
+          <a href="#" class="delete-icon" data-id="${expense.id}">
+           <i class="fas fa-trash"></i>
+          </a>
+         </div>
+        </div>
+       `;
+       this.expenseList.appendChild(div);
+}
 
   // total expense
   totalExpense() {
     let total = 400;
     return total
+    // show balance
   }
 }
+
+
 
 function eventListeners() {
   const budgetForm = document.getElementById("budget-form");
@@ -104,7 +133,7 @@ function eventListeners() {
   // expense form submit
   expenseForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    budget.submitBudgetForm();
+    budget.submitExpenseForm();
   });
   // expense click
   expenseList.addEventListener("click", function (event) {
