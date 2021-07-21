@@ -118,6 +118,30 @@ class BudgetApp {
     return total;
     // show balance
   }
+  // edit expense
+  editExpense(element) {
+    let id = parseInt(element.dataset.id);
+    let parent = element.parentElement.parentElement.parentElement;
+    // remove from DOM 
+    this.expenseList.removeChild(parent)
+
+    let expense = this.itemList.filter(function (item) {
+      return item.id === id
+    })
+    // show value
+    this.expenseInput.value = expense[0].title
+    this.amountInput.value = expense[0].amount
+    // remove from the list
+    let tempList = this.itemList.filter(function (item) {
+      return item.id !== id;
+    })
+    this.itemList = tempList;
+    this.showBalance()
+  }
+  // delete expense
+  deleteExpense(element) {
+    
+  }
 }
 
 function eventListeners() {
