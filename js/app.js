@@ -18,7 +18,7 @@ class BudgetApp {
 
   submitBudgetForm() {
     const value = this.budgetInput.value;
-    console.log(value)
+    console.log(value);
     if (value === "" || value < 0) {
       this.budgetFeedback.classList.add("showItem");
       this.budgetFeedback.innerHTML = `<p>Value cannot be empty or negative</p>`;
@@ -28,15 +28,13 @@ class BudgetApp {
 
       setTimeout(function () {
         // if you this, it will go to the global (window)
-        self.budgetFeedback.classList.remove('showItem');
-      }, 4000)
-    }
-    else {
+        self.budgetFeedback.classList.remove("showItem");
+      }, 4000);
+    } else {
       this.budgetAmount.textContent = value;
-      this.budgetInput.value = '';
+      this.budgetInput.value = "";
       this.showBalance();
     }
-    
   }
   // show balance
   showBalance() {
@@ -44,32 +42,32 @@ class BudgetApp {
     const total = parseInt(this.budgetAmount.textContent) - expense;
     this.balanceAmount.textContent = total;
     if (total < 0) {
-      this.balance.classList.remove('showGreen', 'showBlack');
-      this.balance.classList.add('showRed')
+      this.balance.classList.remove("showGreen", "showBlack");
+      this.balance.classList.add("showRed");
     } else if (total > 0) {
-      this.balance.classList.remove('showRed', 'showBlack');
-      this.balance.classList.add('showGreen')
+      this.balance.classList.remove("showRed", "showBlack");
+      this.balance.classList.add("showGreen");
     } else if (total === 0) {
-      this.balance.classList.remove('showRed', 'showGreen');
-      this.balance.classList.add('showBlack')
+      this.balance.classList.remove("showRed", "showGreen");
+      this.balance.classList.add("showBlack");
     }
-    console.log(expense)
+    console.log(expense);
   }
 
-// submit expense form
+  // submit expense form
   submitExpenseForm() {
     const expenseValue = this.expenseInput.value;
-    console.log(expenseValue)
+    console.log(expenseValue);
     const amountValue = this.amountInput.value;
-    if (expenseValue === '' || amountValue === '' || amountValue < 0) {
-      this.expenseFeedback.classList.add('showItem');
-      this.expenseFeedback.innerHTML = `<p>values cannot be empty or negative</p>`
-      const self = this
+    if (expenseValue === "" || amountValue === "" || amountValue < 0) {
+      this.expenseFeedback.classList.add("showItem");
+      this.expenseFeedback.innerHTML = `<p>values cannot be empty or negative</p>`;
+      const self = this;
       setTimeout(function () {
-        self.expenseFeedback.classList.remove('showItem');
+        self.expenseFeedback.classList.remove("showItem");
       }, 400);
     } else {
-      let amount = parseInt(amountValue)
+      let amount = parseInt(amountValue);
       this.expenseInput.value = "";
       this.amountInput.value = "";
 
@@ -77,20 +75,20 @@ class BudgetApp {
         id: this.itemID,
         title: expenseValue,
         amount: amount,
-      }
-        this.itemID++,
-        this.itemList.push(expense);
-        this.addExpense(expense)
-        // show balance
+      };
+      this.itemID++, this.itemList.push(expense);
+      this.addExpense(expense);
+      this.showBalance();
+      // show balance
     }
   }
-  
-// add expense
-addExpense(expense){
-  console.log(expense.title)
-  const div = document.createElement('div');
-  div.classList.add('expense')
-  div.innerHTML = ` 
+
+  // add expense
+  addExpense(expense) {
+    console.log(expense.title);
+    const div = document.createElement("div");
+    div.classList.add("expense");
+    div.innerHTML = ` 
         <div class="expense-item d-flex justify-content-between align-items-baseline">
          <h6 class="expense-title mb-0 text-uppercase list-item">- ${expense.title}</h6>
          <h5 class="expense-amount mb-0 list-item">${expense.amount}</h5>
@@ -104,18 +102,23 @@ addExpense(expense){
          </div>
         </div>
        `;
-       this.expenseList.appendChild(div);
-}
+    this.expenseList.appendChild(div);
+  }
 
   // total expense
   totalExpense() {
-    let total = 400;
-    return total
+    let total = 0;
+    if (this.itemList.length > 0) {
+      total = this.itemList.reduce(function (acc, curr) {
+        acc += curr.amount
+        return acc;
+      }, 0) 
+    }
+    this.expenseAmount.textContent = total;
+    return total;
     // show balance
   }
 }
-
-
 
 function eventListeners() {
   const budgetForm = document.getElementById("budget-form");
@@ -136,9 +139,7 @@ function eventListeners() {
     budget.submitExpenseForm();
   });
   // expense click
-  expenseList.addEventListener("click", function (event) {
-    
-  });
+  expenseList.addEventListener("click", function (event) {});
 }
 document.addEventListener("DOMContentLoaded", function () {
   eventListeners();
